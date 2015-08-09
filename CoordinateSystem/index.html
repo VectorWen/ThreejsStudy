@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Three框架-CoordinateSystem</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="../js/three.min.js"></script>
+		<script>
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			//线的原材料
+			var materialZ = new THREE.LineBasicMaterial({
+				color : 0xff0000 //顶点的颜色有了
+			});
+
+			
+			var geometryZ = new THREE.Geometry();
+			geometryZ.vertices.push(
+				new THREE.Vector3( 0, 0, 0 ),
+				new THREE.Vector3(0,0,25),
+				new THREE.Vector3( 3, 0, 22 ),
+				new THREE.Vector3(0,0,25),
+				new THREE.Vector3( 0, 3, 22 )
+			);
+
+			//把原材料和几何体组合成线条
+			var lineZ = new THREE.Line( geometryZ, materialZ );
+			scene.add( lineZ );
+
+			//线的原材料
+			var materialY = new THREE.LineBasicMaterial({
+				color : 0x00ff00 //顶点的颜色有了
+			});
+
+			
+			var geometryY = new THREE.Geometry();
+			geometryY.vertices.push(
+				new THREE.Vector3( 0, 0, 0 ),
+				new THREE.Vector3(0,30,0),
+				new THREE.Vector3( 3, 27, 0 ),
+				new THREE.Vector3(0,30,0),
+				new THREE.Vector3( -3, 27, 0)
+			);
+
+			//把原材料和几何体组合成线条
+			var lineY = new THREE.Line( geometryY, materialY );
+			scene.add( lineY );
+
+			//线的原材料
+			var materialX = new THREE.LineBasicMaterial({
+				color : 0x0000ff //顶点的颜色有了
+			});
+
+			
+			var geometryX = new THREE.Geometry();
+			geometryX.vertices.push(
+				new THREE.Vector3( 0, 0, 0 ),
+				new THREE.Vector3(30,0,0),
+				new THREE.Vector3( 27, 3, 0 ),
+				new THREE.Vector3(30,0,0),
+				new THREE.Vector3( 27, -3, 0 )
+			);
+
+			//把原材料和几何体组合成线条
+			var lineX = new THREE.Line( geometryX, materialX );
+			scene.add( lineX);
+
+			lineZ.rotation.x = 45*Math.PI/180; //让Z轴5围绕X轴旋转45度
+			lineZ.rotation.y = -35*Math.PI/180; //围绕Y轴逆时针旋转35度
+
+			camera.position.z = 50; //远点看才能看的清楚点
+
+			renderer.render(scene, camera); //渲染
+		</script>
+	</body>
+</html>

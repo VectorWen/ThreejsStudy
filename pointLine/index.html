@@ -17,23 +17,44 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
+			//线的原材料
 			var material = new THREE.LineBasicMaterial({
-				vertexColors: true
+				vertexColors: true //顶点的颜色有了
 			});
+
+			//几何体
  			var color1 = new THREE.Color( 0x444444 ), color2 = new THREE.Color( 0xFF0000 ), color3 = new THREE.Color( 0x0000FF );
 			var geometry = new THREE.Geometry();
 			geometry.vertices.push(
-				new THREE.Vector3( -10, 0, 0 ),
+				new THREE.Vector3( 0, 0, 0 ),
 				new THREE.Vector3( 0, 10, 0 ),
+				new THREE.Vector3( 10, 10, 0 ),
+				new THREE.Vector3( 10, 0, 0 ),
+				new THREE.Vector3( 0, 0, 0 ),
+				new THREE.Vector3( 0, 0, 10 ),
+				new THREE.Vector3( 0, 10, 10 ),
+				new THREE.Vector3( 10, 10, 10 ),
+				new THREE.Vector3( 10, 0, 10 ),
+				new THREE.Vector3( 0, 0, 10 ),
+				new THREE.Vector3( 0, 10, 10 ),
+				new THREE.Vector3( 0, 10, 0 ),
+				new THREE.Vector3( 10, 10, 0 ),
+				new THREE.Vector3( 10, 10, 10 ),
+				new THREE.Vector3( 10, 0, 10 ),
 				new THREE.Vector3( 10, 0, 0 )
 			);
-			geometry.colors.push( color1, color2, color3 );
+			geometry.colors.push( color1, color2, color3,color1, color2,color3,color1, color2, color3,color1, color2 ,color1, color2,color1, color2,color1, color2 );
+
+			//把原材料和几何体组合成线条
 			var line = new THREE.Line( geometry, material );
 			scene.add( line );
 
-			camera.position.z = 50;
+			line.rotation.x = -30*Math.PI/180;
+			line.rotation.z = -30*Math.PI/180;
 
-			renderer.render(scene, camera);
+			camera.position.z = 30; //远点看才能看的清楚点
+
+			renderer.render(scene, camera); //渲染
 		</script>
 	</body>
 </html>
