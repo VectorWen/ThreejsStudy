@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<script src="../js/three.min.js"></script>
+		<script src="../js/tween.min.js"></script>
 		<script>
 
 			var renderer;
@@ -52,21 +53,27 @@
 				scene.add( cylinder );
 			}
 
+			function initTween(){
+				new TWEEN.Tween( camera.position)
+				.to( { x: 400 }, 3000 ).repeat( Infinity ).start();
+			}
+
 			function threeStart() {
                 initThree();
                 initCamera();
                 initScene();
                 initLight();
                 initObject();
+                initTween();
                 animation();
 
             }
 
             function animation()
             {
-                camera.position.x =camera.position.x +1;
                 renderer.render(scene, camera);
                 requestAnimationFrame(animation);
+                TWEEN.update();
             }
 
             threeStart();
