@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<script src="../js/three.min.js"></script>
-		<script src="../js/stats.min.js"></script>
+		<script src="../js/clock.js"></script>
 		<script>
 
 			var renderer;
@@ -21,10 +21,10 @@
 
 			var camera;
 			function initCamera(){
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 10000 );
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 1, 10000 );
 				camera.position.x = 0;
-				camera.position.y = 0;
-				camera.position.z = 800; //在哪个位置查看
+				camera.position.y = 300;
+				camera.position.z = 400; //在哪个位置查看
 				camera.up.x = 0;
 				camera.up.y = 1;
 				camera.up.z = 0; //方向
@@ -45,19 +45,19 @@
 
 
 			var mesh;
+			var texture;
 			function initObject(){
-				
-				var geometry = new THREE.PlaneGeometry( 500, 300, 1, 1 );
-		        geometry.vertices[0].uv = new THREE.Vector2(0,0);
-		        geometry.vertices[1].uv = new THREE.Vector2(2,0);
-		        geometry.vertices[2].uv = new THREE.Vector2(2,2);
-		        geometry.vertices[3].uv = new THREE.Vector2(0,2);
-		        
-		        //加载纹理
-		        var texture = THREE.ImageUtils.loadTexture("../texture/Ali176.jpg",null,function(t){});
+				//new 一个平面几何
+				var geometry = new THREE.BoxGeometry(150, 150, 150);
 
+		        //加载纹理
+		        texture = new THREE.ImageUtils.loadTexture("../texture/Ali176.jpg",null,function(t){});
+		        // texture = new THREE.Texture(canvas);
+				
 		        //new 一个基本材质,并把纹理当作皮肤
 		        var material = new THREE.MeshBasicMaterial({map:texture});
+
+            	texture.update();
 
 		        mesh = new THREE.Mesh(geometry,material);
 
@@ -66,6 +66,8 @@
 			}
 
 			function threeStart() {
+
+				clock();
                 initThree();
                 initCamera();
                 initScene();
@@ -75,9 +77,8 @@
 
             }
 
-            function animation()
-            {
-                camera.position.x =camera.position.x + 1;
+            function animation(){
+            	camera.position.x =camera.position.x + 1;
                 renderer.render(scene, camera);
                 requestAnimationFrame(animation);
             }
